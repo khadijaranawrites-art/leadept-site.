@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact & Book a Call — LEADEPT</title>
+<meta name="description" content="Book a free intro call with LEADEPT or send a message. We'll map out how to turn your LinkedIn into a predictable pipeline of qualified sales calls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><span class="mark">L</span>LEADEPT</a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="#book" class="btn btn--primary">Book a call</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" style="padding-top:clamp(60px,8vw,96px);padding-bottom:clamp(40px,6vw,64px)">
+  <div class="wrap">
+    <span class="pill"><span class="dot"></span> Usually replies within one business day</span>
+    <h1 class="h-xl" style="max-width:16ch">Let's fill your calendar with qualified calls.</h1>
+    <p class="lead" style="max-width:54ch">Book a free intro call and we'll map out exactly how LEADEPT would work for your business — or drop us a message and we'll come back to you fast. No pressure, no obligation.</p>
+  </div>
+</section>
+
+<section class="section section--white" id="book">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div class="reveal">
+        <span class="eyebrow">Prefer to talk?</span>
+        <h2 class="h-md">Book your free intro call.</h2>
+        <p class="lead" style="font-size:1.05rem">Grab a time that suits you. We'll learn about your goals and show you exactly how we'd turn your LinkedIn into pipeline — in plain numbers.</p>
+
+        <div style="margin:26px 0">
+          <a href="#book-link" data-booking class="btn btn--primary btn--wide">Book a call <span class="arrow">→</span></a>
+        </div>
+
+        <div class="contact-detail">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
+          <div><b>Email us</b><a href="mailto:hello@leadept.com" class="tbd">hello@leadept.com</a></div>
+        </div>
+        <div class="contact-detail">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <div><b>Response time</b><span>Within one business day, every time.</span></div>
+        </div>
+        <div class="contact-detail">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.5 13.5A8.4 8.4 0 1 1 12 3.5"/><path d="M9 12l2 2 5-5"/></svg></span>
+          <div><b>No obligation</b><span>The intro call is free. You decide if it's a fit.</span></div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="form-card">
+          <h2 class="h-md" style="margin-bottom:6px">Send us a message</h2>
+          <p style="color:var(--ink-soft);margin-bottom:26px">Tell us a little about you and we'll be in touch.</p>
+          <form id="lead-form" novalidate>
+            <div class="field">
+              <label for="name">Your name <span class="req">*</span></label>
+              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Jane Founder">
+            </div>
+            <div class="field">
+              <label for="email">Work email <span class="req">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required placeholder="jane@company.com">
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" autocomplete="organization" placeholder="Company Inc.">
+            </div>
+            <div class="field">
+              <label for="message">What would you like help with?</label>
+              <textarea id="message" name="message" placeholder="A sentence or two about your business and what you're after."></textarea>
+            </div>
+            <!-- honeypot: hidden from humans, catches bots -->
+            <div style="position:absolute;left:-9999px" aria-hidden="true">
+              <label>Do not fill this in <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <button type="submit" class="btn btn--primary" id="lead-submit">Send message <span class="arrow">→</span></button>
+            <p class="form-note">By sending this you agree to be contacted about your enquiry. We never share your details.</p>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy cta-band">
+  <div class="wrap reveal">
+    <span class="eyebrow">Still deciding?</span>
+    <h2 class="h-lg">See how the whole thing works first.</h2>
+    <p class="lead mx-auto">Walk through our four-step process — Strategy, Content, Outreach, Calls — before you reach out.</p>
+    <div class="btn-row btn-row--center">
+      <a href="how-it-works.html" class="btn btn--primary btn--wide">See how it works <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="brand"><span class="mark">L</span>LEADEPT</a>
+        <p>LinkedIn growth for B2B founders — authority-building content and targeted outreach, done for you.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#book">Book a call</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="mailto:hello@leadept.com" class="tbd">hello@leadept.com</a></li>
+          <li><a href="contact.html">Contact form</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> LEADEPT. All rights reserved.</span>
+      <span>Built for founders who'd rather be closing.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/contact.js"></script>
+</body>
+</html>
