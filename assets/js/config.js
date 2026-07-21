@@ -1,16 +1,14 @@
-/* LEADEPT — site configuration
-   These values are safe to expose publicly.
-   The Supabase key below is a public "anon" key, designed for browser use and
-   locked down by Row Level Security: visitors can only INSERT new leads and can
-   never read, edit or delete them. */
+/* LEADEPT site configuration.
+   Fill these in to switch on integrations. Leave blank to use safe defaults.
+
+   BOOKING_URL   -> your calendar link (Calendly / SavvyCal / TidyCal).
+                    When set, every "Book a call" button opens it.
+   SUPABASE_URL  -> your Supabase project URL (optional, for lead storage).
+   SUPABASE_KEY  -> your Supabase public anon key (optional).
+   If Supabase is left blank, the contact form is captured by Netlify Forms
+   (view submissions in your Netlify dashboard, with email alerts).            */
 window.LEADEPT_CONFIG = {
-  SUPABASE_URL: "https://dpydtofypvnfbycvmkep.supabase.co",
-  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRweWR0b2Z5cHZuZmJ5Y3Zta2VwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2MTEzMDYsImV4cCI6MjEwMDE4NzMwNn0.CyxThgiyl1Wdivz4CKrJQ9C8q7beZViCi6MMDnoAbRA",
-
-  // Where "Book a call" buttons go. Until the founder's calendar link is set,
-  // buttons scroll to the contact form instead.
-  BOOKING_URL: "",        // e.g. https://calendly.com/leadept/intro
-
-  // Fallback contact email (also shown in the site footer / contact page).
-  CONTACT_EMAIL: "hello@leadept.com"
+  BOOKING_URL: "",
+  SUPABASE_URL: "",
+  SUPABASE_KEY: ""
 };

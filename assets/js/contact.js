@@ -1,15 +1,16 @@
-/* LEADEPT — contact form + booking link handling */
+/* LEADEPT — booking links + contact form submission */
 (function () {
   'use strict';
   var cfg = window.LEADEPT_CONFIG || {};
 
-  /* ---- route "Book a call" buttons to the real calendar when set ---- */
+  /* Point every "Book a call" button at the real calendar link, if set */
   if (cfg.BOOKING_URL) {
-    document.querySelectorAll('[data-booking], a.btn').forEach(function (a) {
+    document.querySelectorAll('a[href="contact.html"], a[data-booking]').forEach(function (a) {
       var label = (a.textContent || '').toLowerCase();
-      if (a.hasAttribute('data-booking') || label.indexOf('book a call') > -1 || label.indexOf('intro call') > -1) {
+      if (a.hasAttribute('data-booking') || label.indexOf('book a call') !== -1) {
         a.href = cfg.BOOKING_URL;
-        a.target = '_blank'; a.rel = 'noopener';
+        a.target = '_blank';
+        a.rel = 'noopener';
       }
     });
   }
@@ -23,67 +24,60 @@
     statusEl.textContent = msg;
     statusEl.className = 'form-status show ' + (kind || '');
   }
+  function encode(data) {
+    return Object.keys(data).map(function (k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+    }).join('&');
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    // honeypot
-    if (form.website && form.website.value) { return; }
-
+    if (form.website && form.website.value) return;        // legacy honeypot
+    if (form['bot-field'] && form['bot-field'].value) return;
     var name = form.name.value.trim();
     var email = form.email.value.trim();
-    if (!name || !email || email.indexOf('@') < 1) {
+    if (!name || !email || email.indexOf('@') === -1) {
       setStatus('Please add your name and a valid email.', 'err');
       return;
     }
-
     var payload = {
-      name: name,
-      email: email,
-      company: form.company.value.trim() || null,
-      message: form.message.value.trim() || null,
-      source: 'contact_form'
+      name: name, email: email,
+      company: form.company.value.trim(),
+      message: form.message.value.trim()
     };
+    btn.disabled = true;
+    setStatus('Sending…', '');
 
-    // If Supabase isn't configured yet, fall back to an email draft so no lead is lost.
-    if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) {
-      var to = cfg.CONTACT_EMAIL || 'hello@leadept.com';
-      var body = encodeURIComponent(
-        'Name: ' + name + '\nEmail: ' + email +
-        '\nCompany: ' + (payload.company || '') +
-        '\n\n' + (payload.message || '')
-      );
-      window.location.href = 'mailto:' + to + '?subject=' +
-        encodeURIComponent('New enquiry from ' + name) + '&body=' + body;
-      setStatus('Opening your email app so you can send this to us…', 'ok');
+    function done() {
+      form.reset();
+      btn.disabled = false;
+      setStatus('Thanks! Your message is in — we’ll reply within one business day.', 'ok');
+    }
+    function fail() {
+      btn.disabled = false;
+      setStatus('Something went wrong. Please email hello@leadept.com and we’ll sort it.', 'err');
+    }
+
+    // Preferred: store in Supabase if configured
+    if (cfg.SUPABASE_URL && cfg.SUPABASE_KEY) {
+      fetch(cfg.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': cfg.SUPABASE_KEY,
+          'Authorization': 'Bearer ' + cfg.SUPABASE_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      }).then(function (r) { r.ok ? done() : fail(); }).catch(fail);
       return;
     }
 
-    btn.disabled = true;
-    var original = btn.innerHTML;
-    btn.innerHTML = 'Sending…';
-
-    fetch(cfg.SUPABASE_URL + '/rest/v1/leads', {
+    // Fallback: Netlify Forms (works out of the box on the deployed site)
+    fetch('/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': cfg.SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + cfg.SUPABASE_ANON_KEY,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (res.ok) {
-        form.reset();
-        setStatus('Thanks, ' + name.split(' ')[0] + " — got it. We'll be in touch within one business day.", 'ok');
-      } else {
-        return res.text().then(function (t) { throw new Error(t || res.status); });
-      }
-    }).catch(function () {
-      setStatus('Something went wrong sending that. Please email us directly at ' +
-        (cfg.CONTACT_EMAIL || 'hello@leadept.com') + '.', 'err');
-    }).then(function () {
-      btn.disabled = false;
-      btn.innerHTML = original;
-    });
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode(Object.assign({ 'form-name': 'lead' }, payload))
+    }).then(function (r) { r.ok ? done() : fail(); }).catch(fail);
   });
 })();
