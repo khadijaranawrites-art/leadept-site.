@@ -1,0 +1,29 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/img/uploads"
+public_folder: "/assets/img/uploads"
+
+site_url: https://leadept.netlify.app
+display_url: https://leadept.netlify.app
+logo_url: https://leadept.netlify.app/assets/img/leadept-mark.png
+
+collections:
+  - name: "site"
+    label: "Website content"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "main"
+        label: "Homepage & site-wide"
+        file: "content/site.json"
+        fields:
+          - { name: "booking_url", label: "Booking link (Calendly etc.) — leave blank to send Book-a-call buttons to the contact form", widget: "string", required: false }
+          - { name: "email", label: "Contact email (shown in footer & contact page)", widget: "string" }
+          - { name: "pill_text", label: "Top banner text (the little pill in the hero)", widget: "string" }
+          - { name: "hero_title", label: "Main headline", widget: "string" }
+          - { name: "hero_highlight", label: "Highlighted sub-headline (in the blue-grey box)", widget: "string" }
+          - { name: "hero_lead", label: "Intro paragraph under the headline", widget: "text" }
+          - { name: "guarantee_text", label: "Guarantee statement", widget: "text" }
